@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Songxue - 情人节快乐</title>
+    <style>
+        /* 页面整体风格 */
+        body {
+            background: linear-gradient(to bottom, #ffe6fa, #fff0f5);
+            font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+            color: #5c2a2a;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden; /* 防止出现滚动条 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 中间卡片的样式 */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
+            max-width: 85%;
+            width: 400px;
+            position: relative;
+            z-index: 10; /* 保证卡片在爱心上面 */
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        h1 { font-size: 1.8rem; margin-bottom: 20px; color: #d63384; }
+        p { line-height: 1.8; font-size: 1rem; margin-bottom: 15px; text-align: left; }
+        .highlight { font-weight: bold; color: #d63384; }
+        .timer { margin-top: 30px; font-size: 0.9rem; color: #888; border-top: 1px solid #eee; padding-top: 20px; }
+        
+        /* 飘落爱心的样式 */
+        .heart-fall {
+            position: fixed;
+            top: -10vh;
+            color: #ff6b81;
+            font-size: 1.5rem;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Dear Songxue</h1>
+        
+        <p>宝宝，这是陪你过的第一个情人节。</p>
+        <p>尽管不在你身边，但我真的没有一天不在想你。哪怕到今天，我也怕这份爱来得太快，怕你觉得不真实。</p>
+        <p class="highlight">但我更想把这份“不真实”，慢慢变成你生活中最习以为常的“安稳”。</p>
+        <p>谢谢你出现在我的生命里。</p>
+        <p style="text-align: right; margin-top: 20px;">—— 永远陪你的XX</p>
+
+        <div class="timer">
+            我们已经相识 <span id="days">0</span> 天了<br>
+            情人节快乐
+        </div>
+    </div>
+
+    <script>
+        // --- 可以在这里修改你们认识的日期 ---
+        // 格式：YYYY, MM-1, DD (注意：月份是0-11，所以1月写0，2月写1)
+        // 假设你们是2026年1月12日认识的（大概25天前）
+        const startDate = new Date(2026, 1, 23); 
+        
+        // 计算天数
+        const today = new Date();
+        const diff = today - startDate;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('days').innerText = days;
+
+        // 生成飘落爱心
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-fall');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's'; // 3-5秒飘落时间
+            heart.style.opacity = Math.random();
+            heart.style.fontSize = Math.random() * 10 + 20 + 'px';
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 300); // 每0.3秒生成一个爱心
+    </script>
+</body>
+</html>
