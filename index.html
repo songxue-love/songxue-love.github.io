@@ -6,9 +6,7 @@
     <title>To Songxue - 情人节快乐</title>
     <style>
         /* --- 页面滚动设置 --- */
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         /* 页面整体风格 */
         body {
@@ -17,7 +15,7 @@
             color: #5c2a2a;
             margin: 0;
             min-height: 100vh;
-            padding: 60px 0;
+            padding: 40px 0;
             display: flex;
             justify-content: center;
             align-items: center; 
@@ -38,10 +36,10 @@
         }
 
         h1 { font-size: 1.8rem; margin-bottom: 20px; color: #d63384; }
-
-        /* --- 照片拍立得相框样式 --- */
+        
+        /* --- 魔法相框样式 (之前丢失的就是这里) --- */
         .photo-container {
-            margin: 0 auto 20px auto;
+            margin: 0 auto 25px auto;
             width: 90%;
             background: #fff;
             padding: 10px 10px 20px 10px;
@@ -49,34 +47,29 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transform: rotate(-2deg); 
             transition: transform 0.3s ease;
-            position: relative; /* 为内部图片定位做准备 */
+            position: relative; 
         }
         
         .photo-container:hover {
             transform: rotate(0deg) scale(1.02); 
         }
 
-        /* 重点：让图片切换时有平滑的渐变效果 */
         #magicPhoto {
             width: 100%;
             border-radius: 5px;
             display: block;
-            transition: opacity 0.8s ease-in-out; /* 0.8秒的淡入淡出动画 */
+            transition: opacity 0.8s ease-in-out; 
         }
         /* ----------------------- */
-        
+
         p { line-height: 1.8; font-size: 1rem; margin-bottom: 20px; text-align: left; }
         
-        .highlight { font-weight: bold; color: #d63384; }
+        .highlight-pink { font-weight: bold; color: #e83e8c; font-size: 1.05rem; }
         
-        .timer { margin-top: 30px; font-size: 0.9rem; color: #888; border-top: 1px solid #eee; padding-top: 20px; }
+        .timer { margin-top: 30px; font-size: 0.9rem; color: #888; border-top: 1px solid #eee; padding-top: 20px; text-align: center;}
         
-        /* --- 重点：把音乐播放器隐藏起来 --- */
-        audio {
-            display: none;
-        }
+        audio { display: none; }
 
-        /* 飘落爱心的样式 */
         .heart-fall {
             position: fixed;
             top: -10vh;
@@ -97,11 +90,18 @@
     <div class="card">
         <h1>My Love 宋雪儿</h1>
         
+        <div class="photo-container">
+            <img id="magicPhoto" src="photo1.jpg" alt="我们的照片">
+        </div>
         <p>宝宝，这是我们过的第一个情人节。</p>
+        
         <p>都说感情开始要伴随着花束(HelloKitty版，宝宝对花粉过敏呢)和正式的告白开始，但我不想只让你收到东西而我人不在，所以我先欠着宝宝，回去了一定给你补上😙我不会随随便便爱你，更不会随便说爱，所以哪怕到今天我也不敢开口说“爱你”。我知道，宝宝，你内心特别细腻敏感，总是喜欢报喜不报忧，所以我很怕你会觉得这份爱来的太快，太不真实，就像泡沫虚影一触就破，哪怕我很想大声告诉你我的心意，但我更怕会让你觉得有压力；宝宝，尽情跟随你的内心，做你想做的，我永远站在你这一边。</p>
-        <p>我很珍惜也很珍视上天给我的这段缘分，所以请允许我先把“爱”这个字放在心里，借个名人的话：时间比眼睛更能看清。比起口头上的热烈，我更想给你踏实的陪伴。我说这些不是急着索要承诺，也不是想急着证明什么，只是想让你享受当下的每一天。</p>
-        <p class="highlight">我不敢妄言爱，但是当下，请允许我说一句：是花 自然香，是爱 自然长，爱人如养花，我们 来日方长。</p>
-        <p style="text-align: right; margin-top: 20px; font-weight: bold;">—— 😘只想我宋雪儿开心的 也超爱宋雪儿的 睡醒睡前都想宋雪儿的，刘翼</p>
+        
+        <p>我很珍惜也很珍视上天给我的这段缘分，所以请允许我先把“爱”这个字藏在心里，借个名人的话：时间比眼睛更能看清。比起口头上的热烈，我更想给你踏实的陪伴。我说这些不是急着索要承诺，也不是想急着证明什么，只是想让你享受当下的每一天。</p>
+        
+        <p class="highlight-pink">我不敢妄言爱，但是当下，请允许我说一句：是花自然香，是爱自然长，爱人如养花，我们来日方长。</p>
+        
+        <p style="text-align: right; margin-top: 20px; font-weight: bold; font-size: 0.95rem;">—— 🤪只想我宋雪儿开心的 也超爱宋雪儿的 睡醒睡前</p>
 
         <audio id="bgm" loop>
             <source src="love2.mp3" type="audio/mpeg">
@@ -114,14 +114,12 @@
     </div>
 
     <script>
-        // --- 日期设置 ---
         const startDate = new Date(2026, 0, 23);
         const today = new Date();
         const diff = today - startDate;
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         document.getElementById('days').innerText = days;
 
-        // --- 音乐自动播放逻辑 ---
         function playMusic() {
             var audio = document.getElementById("bgm");
             audio.play().then(() => {
@@ -132,37 +130,22 @@
             });
         }
 
-        window.onload = function() {
-            playMusic();
-        };
+        window.onload = function() { playMusic(); };
+        document.addEventListener("WeixinJSBridgeReady", function () { playMusic(); }, false);
 
-        document.addEventListener("WeixinJSBridgeReady", function () {
-            playMusic();
-        }, false);
-
-
-        // --- 照片自动轮播逻辑 (魔法相框核心) ---
+        // --- 照片自动轮播逻辑 ---
         const myPhoto = document.getElementById('magicPhoto');
-        let currentPhotoIndex = 1; // 当前显示第1张
-        const totalPhotos = 3;     // 总共3张照片
+        let currentPhotoIndex = 1; 
+        const totalPhotos = 3;     
 
         setInterval(() => {
-            // 1. 先让当前照片慢慢变透明
             myPhoto.style.opacity = 0; 
-            
-            // 2. 等透明度动画执行完（约800毫秒），悄悄换图，再让它清晰
             setTimeout(() => {
-                // 计算下一张是第几张 (1->2, 2->3, 3->1)
                 currentPhotoIndex = currentPhotoIndex >= totalPhotos ? 1 : currentPhotoIndex + 1;
-                // 替换图片路径
                 myPhoto.src = `photo${currentPhotoIndex}.jpg`; 
-                // 让新照片慢慢显现
                 myPhoto.style.opacity = 1; 
-            }, 800); // 这里的800必须和上面CSS里transition的0.8s对应
-
-        }, 4000); // 每隔 4 秒钟触发一次切换
-        // ----------------------------------------
-
+            }, 800); 
+        }, 4000); 
 
         // --- 爱心飘落逻辑 ---
         function createHeart() {
