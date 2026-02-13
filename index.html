@@ -38,6 +38,32 @@
         }
 
         h1 { font-size: 1.8rem; margin-bottom: 20px; color: #d63384; }
+
+        /* --- 照片拍立得相框样式 --- */
+        .photo-container {
+            margin: 0 auto 20px auto;
+            width: 90%;
+            background: #fff;
+            padding: 10px 10px 20px 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: rotate(-2deg); 
+            transition: transform 0.3s ease;
+            position: relative; /* 为内部图片定位做准备 */
+        }
+        
+        .photo-container:hover {
+            transform: rotate(0deg) scale(1.02); 
+        }
+
+        /* 重点：让图片切换时有平滑的渐变效果 */
+        #magicPhoto {
+            width: 100%;
+            border-radius: 5px;
+            display: block;
+            transition: opacity 0.8s ease-in-out; /* 0.8秒的淡入淡出动画 */
+        }
+        /* ----------------------- */
         
         p { line-height: 1.8; font-size: 1rem; margin-bottom: 20px; text-align: left; }
         
