@@ -125,23 +125,43 @@
         function playMusic() {
             var audio = document.getElementById("bgm");
             audio.play().then(() => {
-                // 播放成功后，移除事件监听，避免重复触发
                 document.body.onclick = null;
                 document.body.ontouchstart = null;
             }).catch(error => {
-                console.log("浏览器阻止了自动播放");
+                console.log("等待交互中...");
             });
         }
 
-        // 尝试页面加载后直接播放（针对部分允许的旧浏览器）
         window.onload = function() {
             playMusic();
         };
 
-        // 针对微信浏览器的特殊处理
         document.addEventListener("WeixinJSBridgeReady", function () {
             playMusic();
         }, false);
+
+
+        // --- 照片自动轮播逻辑 (魔法相框核心) ---
+        const myPhoto = document.getElementById('magicPhoto');
+        let currentPhotoIndex = 1; // 当前显示第1张
+        const totalPhotos = 3;     // 总共3张照片
+
+        setInterval(() => {
+            // 1. 先让当前照片慢慢变透明
+            myPhoto.style.opacity = 0; 
+            
+            // 2. 等透明度动画执行完（约800毫秒），悄悄换图，再让它清晰
+            setTimeout(() => {
+                // 计算下一张是第几张 (1->2, 2->3, 3->1)
+                currentPhotoIndex = currentPhotoIndex >= totalPhotos ? 1 : currentPhotoIndex + 1;
+                // 替换图片路径
+                myPhoto.src = `photo${currentPhotoIndex}.jpg`; 
+                // 让新照片慢慢显现
+                myPhoto.style.opacity = 1; 
+            }, 800); // 这里的800必须和上面CSS里transition的0.8s对应
+
+        }, 4000); // 每隔 4 秒钟触发一次切换
+        // ----------------------------------------
 
 
         // --- 爱心飘落逻辑 ---
